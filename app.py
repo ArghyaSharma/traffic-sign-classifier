@@ -1,6 +1,6 @@
 import cv2
 import numpy as np
-from keras.models import load_model
+import tensorflow as tf
 from fastapi import FastAPI, UploadFile, File
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -15,7 +15,7 @@ app.add_middleware(
 )
 
 # Load trained model
-model = load_model("model.h5")
+model = tf.keras.models.load_model("model.h5")
 
 IMG_WIDTH = 30
 IMG_HEIGHT = 30
