@@ -1,6 +1,6 @@
 fastapi
 uvicorn
-numpy
+tensorflow
 opencv-python-headless
-keras==2.10.0
-h5py
+numpy
+python-multipart
