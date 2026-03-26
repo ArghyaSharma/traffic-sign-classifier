@@ -1,6 +1,10 @@
+import os
+os.environ["TF_CPP_MIN_LOG_LEVEL"] = "2"
+os.environ["OMP_NUM_THREADS"] = "1"
+os.environ["TF_NUM_INTRAOP_THREADS"] = "1"
+os.environ["TF_NUM_INTEROP_THREADS"] = "1"
 import cv2
 import numpy as np
-import tensorflow as tf
 from fastapi import FastAPI, UploadFile, File
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -15,7 +19,15 @@ app.add_middleware(
 )
 
 # Load trained model
-model = tf.keras.models.load_model("model.h5")
+model = None
+
+def get_model():
+    global model
+    if model is None:
+        import tensorflow as tf
+        tf.config.set_visible_devices([], 'GPU')
+        model = tf.keras.models.load_model("model.h5", compile=False)
+    return model
 
 IMG_WIDTH = 30
 IMG_HEIGHT = 30
@@ -60,7 +72,8 @@ async def predict(file: UploadFile = File(...)):
         img = np.expand_dims(img, axis=0)
 
         # Predict
-        predictions = model.predict(img)
+        model = get_model()
+        predictions = model.predict(img, verbose=0)
         category = int(np.argmax(predictions[0]))
         confidence = float(np.max(predictions[0]))
 
@@ -73,7 +86,6 @@ async def predict(file: UploadFile = File(...)):
     except Exception as e:
         return {"error": str(e)}
 
-import os
 
 if __name__ == "__main__":
     import uvicorn
