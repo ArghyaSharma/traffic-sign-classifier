@@ -1,16 +1,29 @@
-# 🚦 Traffic Sign Classifier
+# 🚦 Traffic Sign Interpretation System
 
-An end-to-end AI-powered web application that classifies traffic signs using a Convolutional Neural Network (CNN) with a FastAPI backend and a browser-based frontend.
+An end-to-end AI-powered system that classifies and interprets traffic signs using a Convolutional Neural Network (CNN) with a FastAPI backend and a browser-based frontend.
+
+---
+
+## 🎯 Problem Statement
+
+Drivers often fail to follow traffic rules not due to negligence, but because of **uncertainty or misinterpretation of traffic signs**, especially:
+
+- In unfamiliar cities or countries  
+- When encountering rare or complex signs  
+- Under time pressure while driving  
+
+This system aims to **reduce ambiguity and improve road safety** by providing accurate, AI-driven interpretation of traffic signs.
 
 ---
 
 ## 🧠 Overview
 
 This project uses a trained CNN model to recognize traffic signs from images.  
-Users can upload an image through a web interface, and the model returns:
+Users can upload an image through a web interface, and the system returns:
 
-- Predicted traffic sign
-- Confidence score
+- Predicted traffic sign  
+- Confidence score  
+- Interpreted meaning of the sign  
 
 ---
 
